@@ -1,10 +1,1 @@
-{
-  "name": "Mon Grimoire Dimitry",
-  "short_name": "Therkos",
-  "description": "Gestion de personnage D&D 2024",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#171512",
-  "theme_color": "#201b18",
-  "lang": "fr"
-}
+{"name":"Grimoire de Therkos Dimitry","short_name":"Grimoire Therkos","start_url":"./","display":"standalone","background_color":"#17120f","theme_color":"#17120f","lang":"fr","description":"Grimoire de campagne et personnage pour jeu de rôle."}

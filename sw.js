@@ -1,5 +1,5 @@
-const CACHE='therkos-grimoire-v2';
-const ASSETS=['./','./index.html','./manifest.webmanifest'];
-self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS))));
-self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))));
-self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(caches.match(e.request).then(cached=>cached||fetch(e.request).then(res=>{const copy=res.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return res}).catch(()=>caches.match('./index.html'))))});
+const CACHE='therkos-grimoire-art-v16';
+const CORE=['./','./index.html','./manifest.webmanifest','./spell-art/thaumaturgy.jpg','./spell-art/guidance.jpg','./spell-art/sacred-flame.jpg','./spell-art/minor-illusion.jpg','./spell-art/spare-dying.jpg','./spell-art/bless.jpg','./spell-art/detect-magic.jpg','./spell-art/sanctuary.jpg','./spell-art/healing-word.jpg','./spell-art/cure-wounds.jpg','./spell-art/divine-spark.jpg','./spell-art/turn-undead.jpg'];
+self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)))});
+self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
+self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;const u=new URL(e.request.url);if(u.origin!==self.location.origin)return;e.respondWith(fetch(e.request).then(r=>{if(r&&r.ok){const cp=r.clone();caches.open(CACHE).then(c=>c.put(e.request,cp))}return r}).catch(()=>caches.match(e.request).then(r=>r||caches.match('./index.html'))))});
